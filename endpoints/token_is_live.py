@@ -7,6 +7,7 @@ from endpoints.base_endpoint import BaseEndpoint
 class TokenIsLive(BaseEndpoint):
     _endpoint = '/authorize/'
     text = None
+    isLive = None
 
     @allure.step('Check token is live')
     def check_token(self, token, headers=None):
@@ -16,3 +17,4 @@ class TokenIsLive(BaseEndpoint):
             headers=headers
         )
         self.text = self.response.text
+        self.isLive = True if self.response.status_code == 200 else False

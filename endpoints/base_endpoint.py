@@ -9,9 +9,12 @@ class BaseEndpoint:
     _headers = {'Content-type': 'application/json'}
     response = None
     json = None
-    token = None
-    user = None
 
     @allure.step('Check response status code')
     def check_status_code(self, code):
         assert self.response.status_code == code, f'status code {self.response.status_code} is not {code}'
+
+    @allure.step('Check response meme body')
+    def check_response_body(self, expected_body):
+        assert self.response.json() == expected_body, \
+            f'response body {self.response.json()} is not {expected_body}'
